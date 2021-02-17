@@ -1,0 +1,17 @@
+
+{% block content %}
+        
+<form action="{% url 'shopping_cart:sold_order' order.id %}" method="post"> 
+    {% csrf_token %} 
+    <p>{{ order.owner }}</p>
+    <p>{{ order.items }}</p>
+    <p>{{ order.date_ordered }}</p>
+</form>
+{% for item in items %}
+    <p>{{ item.product }}</p>
+    <p>{{ item.quantity }}</p>
+    {% endfor %}
+
+{% endblock content %}
+
+

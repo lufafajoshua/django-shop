@@ -1,0 +1,18 @@
+
+{% block content %}
+        
+<form action="{% url 'seller:profile' %}" method="post"> 
+    {% csrf_token %} 
+    <p>{{ seller.user.username}}</p>
+    
+   </form> 
+   {% for product in products %}
+                
+   <p>{{ product.name }}
+   </p>
+                   
+{% endfor %} 
+
+<p>Format the sold products in a table format</p> 
+
+   {% endblock content %}

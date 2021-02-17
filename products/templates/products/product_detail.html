@@ -1,0 +1,19 @@
+
+{% block content %}
+        
+<form action="{% url 'products:product_detail' product.id %}" method="post"> 
+    {% csrf_token %} 
+    <p>{{ product.category }}</p>
+    <p>{{ product.name}}</p>
+    <p>{{ product.price }}</p>
+    <p>{{ product.image }}</p>
+    <p>{{ product.description }}</p>
+    <p>{{ product.available }}</p>
+   </form> 
+   <p><a href="{% url 'shopping_cart:add_to_cart' product.id %}" class="btn btn-warning">Add To Cart</a></p>   
+   <a href="{% url 'django_chatter:seller_chat' product.id %}" class="btn btn-warning">Start A Chart</a>
+
+
+
+
+   {% endblock content %}

@@ -1,0 +1,15 @@
+<DOCTYPE html>
+
+    {% block content %}
+    {% for order in sold_orders %}
+                    
+            <p>{{ order.items }}
+                <a href="{% url 'shopping_cart:sold_order' order.id %}" class="btn btn-warning">Details</a>
+            </p>
+            <p>{{ order.owner }}</p>
+                          
+    {% endfor %} 
+    
+    {% endblock content %}
+    
+    

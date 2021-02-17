@@ -1,0 +1,14 @@
+<DOCTYPE html>
+
+    {% block content %}
+    {% for category in categories %}
+                    
+            <p>{{ category.name }}
+                <a href="{% url 'products:category_detail' category.id %}" class="btn btn-warning">Details</a>
+            </p>
+                          
+    {% endfor %} 
+    </p>
+    
+    {% endblock content %}
+    

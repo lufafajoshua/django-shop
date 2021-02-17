@@ -1,0 +1,13 @@
+<DOCTYPE html>
+
+    {% block content %}
+    {% for seller in sellers %}
+             <p>{{ seller.user_id }}</p>       
+            <p>{{ seller.user.username }}
+                <a href="{% url 'seller:seller_detail' seller.user_id %}" class="btn btn-warning">View Details</a>
+            </p>
+                          
+    {% endfor %} 
+    
+    {% endblock content %}
+    

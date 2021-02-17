@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+ <section>
+   <div class="row">
+    <table class="table table-hover table-bordered text-center">
+      <tr class="text-center">
+        <th>no.</th>
+        <th>Item</th>
+        <th>Price</th>
+        
+      </tr>
+      {% for item in order.get_cart_items %}
+        <tr>
+          <td>{{ forloop.counter }}</td>
+          <td>
+            {{ item.product.name }}
+            <span class="pull-right">
+              <a href="{% url 'shopping_cart:delete_item' item.id %}" data-balloon="remove this item from cart" class="text-danger" onclick="return confirm_delete();">
+                <i class="fas fa-trash"></i>
+              </a>
+            </span>
+          </td>
+          <td>{{ item.total_cost }}</td>
+        </tr>
+      {% empty %}
+        <tr>
+          <td colspan= 3> You have not added any items yet.</td>
+        </tr>
+      {% endfor %}
+      <tr>
+        {% if order.get_cart_total != None %}
+        <td colspan=2>
+          <strong class="pull-right">Order Total:</strong>
+        </td>
+        
+        <td colspan= 1>
+          Ush <strong>{{ order.get_cart_total }}</strong>
+        </td>
+        {% endif %}
+      </tr>
+    </table>
+     
+   </div>
+ </section>
+ 
+<div class="container">
+    <form action="{% url 'shopping_cart:process_payment' %}" method="post">
+        {% csrf_token %}
+        <div class="col-md-8 col-md-offset-2">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    {% if error_message %}
+                        <p class="bg-danger p-d ml-b">{{ error_message }}</p>
+                    {% endif %}
+                   
+                    <div class="form-group clearfix">
+                        <label for="{{ form.phone_no.id_for_label }}" class="col-md-4 control-label text-right">Enter Phone<span class="text-red"></span>:</label>
+                        <div class="col-md-6">
+                            {{ form.phone_no }}
+                        </div>
+                    </div>
+                    <div class="form-group clearfix">
+                      <label for="{{ form.email.id_for_label }}" class="col-md-4 control-label text-right">Email<span class="text-red"></span>:</label>
+                      <div class="col-md-6">
+                          {{ form.email }}
+                      </div>
+                  </div>
+                  <div class="form-group clearfix">
+                    <label for="{{ form.address.id_for_label }}" class="col-md-4 control-label text-right">Address<span class="text-red"></span>:</label>
+                    <div class="col-md-6">
+                        {{ form.address }}
+                    </div>
+                </div>
+                    <div class="col-md-6 col-md-offset-4">
+                        <input type="submit" value="Confirm Payment" class="btn btn-success">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}
+
+{% block scripts %}
+  {{ block.super }}
+  <script>
+  function confirm_delete(){
+    return confirm("Do you want to remove this item from cart?");
+  }
+  </script>
+{% endblock scripts %}

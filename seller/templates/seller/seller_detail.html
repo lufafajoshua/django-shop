@@ -1,0 +1,26 @@
+
+{% block content %}
+        
+<form action="{% url 'seller:seller_detail' seller.user_id %}" method="post"> 
+    {% csrf_token %} 
+    <p>{{ seller.user}}</p>
+    <p>{{ seller.telephone }}</p>
+   </form> 
+   {% for product in products %}
+                
+   <p>{{ product.name }}
+   </p>
+                   
+{% endfor %} 
+
+<p>Format the sold products in a table format</p> 
+<p>Sold Products</p>               
+
+{% for key, value in sold.items %}
+<p>
+    {{ key }}::{{ value }}
+    
+</p>
+                
+{% endfor %} 
+   {% endblock content %}
